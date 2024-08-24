@@ -33,6 +33,3 @@ for line in lines:
             score += uppercase.index(dup) + 27
 
 print(score)
-
-
-
