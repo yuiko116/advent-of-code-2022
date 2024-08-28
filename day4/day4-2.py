@@ -16,23 +16,12 @@ for line in lines:
         end = int(num[1])
         areas = list(range(start, end + 1))
         check.append(areas)
-    if all(item in check[0] for item in check[1]) or all(item in check[1] for item in check[0]):
-        print(True)
+    if any(i in check[0] for i in check[1]):
         count += 1
-    else:
-        print(False)
 
-    '''
-    # Alternative to the if else block above
-    
-    if (i for i in check[0]) in check[1]:
-        print(True)
-        count += 1
-    elif (i for i in check[1]) in check[0]:
-        print(True)
-        count += 1
-    else:
-        print(False)
-    '''
+    # Alternative to the above if statement:
+    # lst = [i for i in check[0] if i in check[1]]
+    # if lst != []:
+    #     count += 1
 
 print(count)
