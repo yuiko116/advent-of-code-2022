@@ -2,7 +2,7 @@ import re
 pattern = r"\d+"
 
 
-def calculate_total_size():
+def make_directory_tree():
     lines = open('d.txt', 'r')
     dir_size = {}
     current_location = ""
@@ -19,28 +19,29 @@ def calculate_total_size():
                 current_location += str(line.split(" ")[-1].strip("\n"))
             current_path.append(current_location.strip("\n"))
             dir_size[current_location.strip("\n")] = 0
-            print(current_location)
-            print(current_path)
         elif line.startswith("$ cd .."):
             current_location = "".join(current_path[-2])
             current_path.pop()
-            print(current_location)
-            print(current_path)
         elif line[0].isdigit():
             file_size = "".join(re.findall(pattern, line))
             for path in current_path:
                 dir_size[path] += int(file_size)
-            print(dir_size)
+    return dir_size
 
-    total_sizes = 0
+
+def calculate_total_size_below_limit():
+    dir_size = make_directory_tree()
+    total_size = 0
+    limit = 100000
 
     for size in dir_size.values():
-        if size <= 100000:
-            total_sizes += size
+        if size <= limit:
+            total_size += size
 
-    print(total_sizes)
+    return total_size
 
-print(calculate_total_size())
+print(calculate_total_size_below_limit())
+
 
 '''
 # alternative method
